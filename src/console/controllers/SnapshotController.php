@@ -101,7 +101,7 @@ class SnapshotController extends Controller
         $filesystem = $this->getFilesystem()->listContents();
         $files = $this->getFilesystem()->listContents();
         foreach($files as $file){
-            $this->stdout($file['basename'] . "\t" . date('r',$file['timestamp']) . "\n");
+            $this->stdout($file['basename'] . "\n");
         }
         return ExitCode::OK;
     }
