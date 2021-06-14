@@ -173,16 +173,33 @@ class SnapshotController extends Controller
     private function getFilesystem()
     {
         $settings = DbSnapshot::getInstance()->settings;
-        $s3Options = [
-            'credentials' => [
-                'key' => $settings->getAccessKey(),
-                'secret' => $settings->getSecretKey()
-            ],
-            'region' => $settings->getRegion(),
-            'version' => 'latest'
-        ];
-        if ($settings->getEndpoint()) {
-            $s3Options['endpoint'] = $settings->getEndpoint();
+        $region = $settings->getRegion();
+        $endPoint = $settings->getEndpoint();
+        if(empty($region) && !empty($endPoint)){
+            //Non-S3 settings. (S3 Compatible like min.io)
+            $s3Options = [
+                'version' => 'latest',
+                'region'  => '',
+                'endpoint' => $endPoint,
+                'use_path_style_endpoint' => true,
+                'credentials' => [
+                    'key'    => $settings->getAccessKey(),
+                    'secret' => $settings->getSecretKey(),
+                ],
+            ];
+        }else{
+            //S3 Options
+            $s3Options = [
+                'credentials' => [
+                    'key' => $settings->getAccessKey(),
+                    'secret' => $settings->getSecretKey()
+                ],
+                'region' => $region,
+                'version' => 'latest'
+            ];
+            if ($settings->getEndpoint()) {
+                $s3Options['endpoint'] = $settings->getEndpoint();
+            }
         }
         $s3Client = new S3Client($s3Options);
         $s3Adapter = new AwsS3Adapter($s3Client, $settings->getBucket(), $settings->getPath());
