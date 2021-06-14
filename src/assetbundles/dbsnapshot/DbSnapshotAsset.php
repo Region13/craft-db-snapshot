@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2019 Josh butts
  */
 
-namespace jimbojsb\dbsnapshot\assetbundles\DbSnapshot;
+namespace jimbojsb\dbsnapshot\assetbundles\dbsnapshot;
 
 use Craft;
 use craft\web\AssetBundle;
