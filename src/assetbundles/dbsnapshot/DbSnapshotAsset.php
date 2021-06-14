@@ -2,7 +2,8 @@
 /**
  * DB Snapshot plugin for Craft CMS 3.x
  *
- * Snapshot your database with mysqldump and store it to a an asset volume (S3). Also restore it from that same location. Great for local dev snapshots and nightly backups.
+ * Snapshot your database with mysqldump and store it to a an asset volume (S3). 
+ * Also restore it from that same location. Great for local dev snapshots and nightly backups.
  *
  * @link      https://github.com/jimbojsb
  * @copyright Copyright (c) 2019 Josh butts
